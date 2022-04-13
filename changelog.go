@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"path/filepath"
 	"strings"
 
 	"github.com/dronestock/drone"
@@ -17,7 +18,7 @@ func (p *plugin) changelog() (undo bool, err error) {
 
 	args := []interface{}{
 		`--repository-url`, p.Remote,
-		`--output`, p.Output,
+		`--output`, filepath.Join(p.Folder, p.Output),
 	}
 
 	// JIRA集成
