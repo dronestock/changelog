@@ -20,8 +20,8 @@ steps:
       output:
         name: changelog
 
-  - name: 日志
-    image: dronestock/changelog
+  #- name: 日志
+  #  image: dronestock/changelog
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/docker
