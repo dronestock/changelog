@@ -2,23 +2,33 @@ package main
 
 import (
 	"fmt"
-	"path/filepath"
 	"strings"
 
 	"github.com/dronestock/drone"
 )
 
 func (p *plugin) changelog() (undo bool, err error) {
+	// 防止出现错误：fatal: unsafe repository
+	if err = p.git(`config`, `--global`, `--add`, `safe.directory`, p.Folder); nil != err {
+		return
+	}
+
 	if `` == strings.TrimSpace(p.From) {
-		latestErr := p.Exec(exeGit, drone.Args(`describe`, `--tags`, `--abbrev=0`), drone.String(&p.From))
+		args := []interface{}{
+			`describe`,
+			`--tags`,
+			`--abbrev=0`,
+		}
+		latestErr := p.Exec(exeGit, drone.Args(args...), drone.String(&p.From), drone.Dir(p.Folder))
 		if nil != latestErr {
 			p.From = ``
 		}
 	}
 
 	args := []interface{}{
-		`--repository-url`, p.Remote,
-		`--output`, filepath.Join(p.Folder, p.Output),
+		`--config`, changelogConfigFilename,
+		`--repository-url`, p.Url,
+		`--output`, p.Output,
 	}
 
 	// JIRA集成
@@ -35,8 +45,13 @@ func (p *plugin) changelog() (undo bool, err error) {
 	// 加入标签选择参数
 	from := strings.TrimSpace(p.From)
 	to := strings.TrimSpace(p.To)
-	if `` != from && `` != to {
+	switch {
+	case `` != from && `` != to:
 		args = append(args, fmt.Sprintf(`%s..%s`, from, to))
+	case `` != from && `` == to:
+		args = append(args, fmt.Sprintf(`%s..`, from))
+	case `` == from && `` != to:
+		args = append(args, fmt.Sprintf(`..%s`, to))
 	}
 
 	// 执行命令
