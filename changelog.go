@@ -10,10 +10,10 @@ import (
 
 func (p *plugin) changelog() (undo bool, err error) {
 	if `` == strings.TrimSpace(p.From) {
-		err = p.Exec(exeGit, drone.Args(`describe`, `--tags`, `--abbrev=0`), drone.String(&p.From))
-	}
-	if nil != err {
-		return
+		latestErr := p.Exec(exeGit, drone.Args(`describe`, `--tags`, `--abbrev=0`), drone.String(&p.From))
+		if nil != latestErr {
+			p.From = ``
+		}
 	}
 
 	args := []interface{}{
@@ -33,7 +33,11 @@ func (p *plugin) changelog() (undo bool, err error) {
 	}
 
 	// 加入标签选择参数
-	args = append(args, fmt.Sprintf(`%s..%s`, p.From, p.To))
+	from := strings.TrimSpace(p.From)
+	to := strings.TrimSpace(p.To)
+	if `` != from && `` != to {
+		args = append(args, fmt.Sprintf(`%s..%s`, from, to))
+	}
 
 	// 执行命令
 	err = p.Exec(exeChangelog, drone.Args(args...), drone.Dir(p.Folder))
