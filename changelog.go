@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/dronestock/drone"
+	"github.com/goexl/git"
 	"github.com/goexl/gox"
 )
 
@@ -43,20 +44,12 @@ options:
 
 func (p *plugin) changelog() (undo bool, err error) {
 	// 防止出现错误：fatal: unsafe repository
-	if err = p.git(`config`, `--global`, `--add`, `safe.directory`, p.Folder); nil != err {
+	if err = git.SafeDirectory(p.Folder); nil != err {
 		return
 	}
 
 	if `` == strings.TrimSpace(p.From) {
-		args := []interface{}{
-			`describe`,
-			`--tags`,
-			`--abbrev=0`,
-		}
-		latestErr := p.Exec(exeGit, drone.Args(args...), drone.String(&p.From), drone.Dir(p.Folder))
-		if nil != latestErr {
-			p.From = ``
-		}
+		p.From, err = git.Tag(git.Dir(p.Folder))
 	}
 
 	// 写入配置文件
@@ -67,7 +60,7 @@ func (p *plugin) changelog() (undo bool, err error) {
 	args := []interface{}{
 		`--config`, changelogConfigFilename,
 		`--template`, changelogTplFilename,
-		`--repository-url`, p.Url,
+		`--repository-url`, p.Changelog.Url,
 		`--output`, p.Output,
 	}
 

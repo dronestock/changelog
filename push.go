@@ -3,44 +3,35 @@ package main
 import (
 	"fmt"
 
+	"github.com/goexl/git"
 	"github.com/goexl/gox"
 )
 
 func (p *plugin) push() (undo bool, err error) {
-	if undo = !p.Push; undo {
+	if undo = !p.pushable(); undo {
 		return
 	}
 
-	// 设置用户名
-	if err = p.git(`config`, `--global`, `user.name`, p.Author); nil != err {
+	// 设置全局用户
+	if err = git.User(p.Author, p.Email, git.Dir(p.Folder)); nil != err {
 		return
 	}
 
-	// 设置邮箱
-	if err = p.git(`config`, `--global`, `user.email`, p.Email); nil != err {
-		return
-	}
-
-	// 加入更新日志
-	if err = p.git(`add`, p.Output); nil != err {
-		return
-	}
-
-	// 提交
+	// 只提交输出文件，不提交其它多余的文件
 	message := fmt.Sprintf(commitMessageFormatter, p.Message)
-	if err = p.git(`commit`, `--message`, message, `--allow-empty`, p.Output); nil != err {
+	if err = git.Commit(message, git.Filenames(p.Output)); nil != err {
 		return
 	}
 
 	// 远端名，为了不和原来仓库的远端名冲突，使用随机字符串
 	name := gox.RandString(defaultNameLength)
 	// 添加远程仓库地址
-	if err = p.git(`remote`, `add`, name, p.Remote); nil != err {
+	if err = git.Remote(p.Remote, git.Name(name)); nil != err {
 		return
 	}
 
 	// 推送
-	err = p.git(`push`, `--set-upstream`, name, p.Branch)
+	err = git.Push(git.Name(name), git.Branch(p.Branch))
 
 	return
 }
