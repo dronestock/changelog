@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/goexl/gox"
 )
 
@@ -25,7 +27,8 @@ func (p *plugin) push() (undo bool, err error) {
 	}
 
 	// 提交
-	if err = p.git(`commit`, `.`, `--message`, p.Message, `--allow-empty`); nil != err {
+	message := fmt.Sprintf(commitMessageFormatter, p.Message)
+	if err = p.git(`commit`, `--message`, message, `--allow-empty`, p.Output); nil != err {
 		return
 	}
 
