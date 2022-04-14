@@ -5,7 +5,41 @@ import (
 	"strings"
 
 	"github.com/dronestock/drone"
+	"github.com/goexl/gox"
 )
+
+const configTpl = `
+style: {{ .Style }}
+template: CHANGELOG.tpl.md
+info:
+  title: {{ .Title.Info }}
+  repository_url: https://github.com/dronestock/changelog
+options:
+  commits:
+    filters:
+      Type:
+        - feat
+        - fix
+        - perf
+        - refactor
+        - chore
+  commit_groups:
+    title_maps:
+      feat: {{ .Title.Feat }}
+      fix: {{ .Title.Fix }}
+      perf: {{ .Title.Perf }}
+      refactor: {{ .Title.Refactor }}
+      chore: {{ .Title.Chore }}
+  header:
+    pattern: "^(\\w*)(?:\\(([\\w\\$\\.\\-\\*\\s]*)\\))?\\:\\s(.*)$"
+    pattern_maps:
+      - Type
+      - Scope
+      - Subject
+  notes:
+    keywords:
+      - BREAKING CHANGE
+`
 
 func (p *plugin) changelog() (undo bool, err error) {
 	// 防止出现错误：fatal: unsafe repository
@@ -25,8 +59,14 @@ func (p *plugin) changelog() (undo bool, err error) {
 		}
 	}
 
+	// 写入配置文件
+	if err = gox.RenderToFile(changelogConfigFilename, configTpl, p.Changelog, false); nil != err {
+		return
+	}
+
 	args := []interface{}{
 		`--config`, changelogConfigFilename,
+		`--template`, changelogTplFilename,
 		`--repository-url`, p.Url,
 		`--output`, p.Output,
 	}
