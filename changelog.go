@@ -49,7 +49,14 @@ func (p *plugin) changelog() (undo bool, err error) {
 	}
 
 	if `` == strings.TrimSpace(p.From) {
-		p.From, err = git.Tag(git.Dir(p.Folder))
+		if `` == strings.TrimSpace(p.Tag) {
+			p.From, err = git.Tag(git.Dir(p.Folder))
+		} else {
+			p.From, err = git.Tag(git.Skip(1), git.Dir(p.Folder))
+		}
+	}
+	if nil != err {
+		return
 	}
 
 	// 写入配置文件

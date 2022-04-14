@@ -25,6 +25,10 @@ steps:
     when:
       branch:
         - master
+    settings:
+      username: storezhang@gmail.com
+      password:
+        from_secret: token_github
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/docker
