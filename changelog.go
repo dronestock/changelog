@@ -44,7 +44,7 @@ options:
 
 func (p *plugin) changelog() (undo bool, err error) {
 	// 防止出现错误：fatal: unsafe repository
-	if err = git.SafeDirectory(p.Folder); nil != err {
+	if err = git.SafeDirectory(git.Folder(p.Folder)); nil != err {
 		return
 	}
 
@@ -52,8 +52,11 @@ func (p *plugin) changelog() (undo bool, err error) {
 		if `` == strings.TrimSpace(p.Tag) {
 			p.From, err = git.Tag(git.Dir(p.Folder))
 		} else {
-			p.From, err = git.Tag(git.Skip(1), git.Dir(p.Folder))
+			p.From, err = git.Tag(git.Second(), git.Dir(p.Folder))
 		}
+	}
+	if `` == strings.TrimSpace(p.To) && `` != strings.TrimSpace(p.Tag) {
+		p.To, err = git.Tag(git.Dir(p.Folder))
 	}
 	if nil != err {
 		return
