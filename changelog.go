@@ -48,15 +48,22 @@ func (p *plugin) changelog() (undo bool, err error) {
 		return
 	}
 
-	if `` == strings.TrimSpace(p.From) {
-		if `` == strings.TrimSpace(p.Tag) {
-			p.From, err = git.Tag(git.Dir(p.Folder))
-		} else {
-			p.From, err = git.Tag(git.Second(), git.Dir(p.Folder))
-		}
+	// 更新日志是基于标签来实现的，应该根据标签的个数来确定相应的逻辑
+	// 没有标签，不填充from和to，使用next-tag参数
+	// 只有一个标签，只填充to
+	// 大于等于两个标签，填充from和to
+	var count int64
+	if count, err = git.Count(); nil != err {
+		return
 	}
-	if `` == strings.TrimSpace(p.To) && `` != strings.TrimSpace(p.Tag) {
+
+	switch {
+	case 1 == count && `` == strings.TrimSpace(p.To) && `` != strings.TrimSpace(p.Tag):
 		p.To, err = git.Tag(git.Dir(p.Folder))
+	case 2 <= count && `` == strings.TrimSpace(p.From) && `` == strings.TrimSpace(p.Tag):
+		p.From, err = git.Tag(git.Dir(p.Folder))
+	case 2 <= count && `` == strings.TrimSpace(p.From) && `` != strings.TrimSpace(p.Tag):
+		p.From, err = git.Tag(git.Second(), git.Dir(p.Folder))
 	}
 	if nil != err {
 		return
