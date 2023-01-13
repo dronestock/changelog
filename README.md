@@ -1,13 +1,13 @@
 # 项目
-[![编译状态](https://github.ruijc.com:20443/api/badges/dronestock/drone/status.svg)](https://github.ruijc.com:20443/dronestock/drone)
-[![Golang质量](https://goreportcard.com/badge/github.com/dronestock/drone)](https://goreportcard.com/report/github.com/dronestock/drone)
-![版本](https://img.shields.io/github/go-mod/go-version/dronestock/drone)
-![仓库大小](https://img.shields.io/github/repo-size/dronestock/drone)
-![最后提交](https://img.shields.io/github/last-commit/dronestock/drone)
-![授权协议](https://img.shields.io/github/license/dronestock/drone)
-![语言个数](https://img.shields.io/github/languages/count/dronestock/drone)
-![最佳语言](https://img.shields.io/github/languages/top/dronestock/drone)
-![星星个数](https://img.shields.io/github/stars/dronestock/drone?style=social)
+[![编译状态](https://github.ruijc.com:20443/api/badges/dronestock/changelog/status.svg)](https://github.ruijc.com:20443/dronestock/changelog)
+[![Golang质量](https://goreportcard.com/badge/github.com/dronestock/changelog)](https://goreportcard.com/report/github.com/dronestock/changelog)
+![版本](https://img.shields.io/github/go-mod/go-version/dronestock/changelog)
+![仓库大小](https://img.shields.io/github/repo-size/dronestock/changelog)
+![最后提交](https://img.shields.io/github/last-commit/dronestock/changelog)
+![授权协议](https://img.shields.io/github/license/dronestock/changelog)
+![语言个数](https://img.shields.io/github/languages/count/dronestock/changelog)
+![最佳语言](https://img.shields.io/github/languages/top/dronestock/changelog)
+![星星个数](https://img.shields.io/github/stars/dronestock/changelog?style=social)
 
 Drone插件模板，要编写Drone插件，可以从此模板开始创建项目
 
@@ -23,7 +23,7 @@ Drone插件模板，要编写Drone插件，可以从此模板开始创建项目
     secret_key: xxx
 ```
 
-更多使用教程，请参考[文档](https://www.dronestock.tech/plugin/stock/drone)
+更多使用教程，请参考[文档](https://www.dronestock.tech/plugin/stock/changelog)
 
 ## 交流
 
@@ -44,10 +44,10 @@ Drone插件模板，要编写Drone插件，可以从此模板开始创建项目
 - [Cos](https://www.dronestock.tech/plugin/stock/cos) 腾讯云对象存储基本配置、文件上传等
 - [Mcu](https://www.dronestock.tech/plugin/stock/mcu) 各种模块依赖文件修改
 - [Apisix](https://www.dronestock.tech/plugin/stock/apisix) Apisix网关插件
-- [Ftp](https://www.dronestock.tech/plugin/stock/ftp) Ftp文件插件
+- [File](https://www.dronestock.tech/plugin/stock/file) 文件插件
 
 ## 感谢Jetbrains
 
 本项目通过`Jetbrains开源许可IDE`编写源代码，特此感谢
 
-[![Jetbrains图标](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://www.jetbrains.com/?from=dronestock/drone)
+[![Jetbrains图标](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://www.jetbrains.com/?from=dronestock/changelog)

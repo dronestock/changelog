@@ -1,3 +1,3 @@
 package main
 
-const changelogExe = "git-chglog"
+const changelogExe = "conventional-changelog"

@@ -5,12 +5,11 @@ LABEL author="storezhang<华寅>" \
 email="storezhang@gmail.com" \
 qq="160290688" \
 wechat="storezhang" \
-# TODO 增加描述信息
-description="Drone持续集成Docker插件，增加以下功能：1、xxx；2、xxx"
+description="Drone持续集成Changelog插件，主要是用来生成改变日志，并结合发布插件发布产品"
 
 
 # 复制文件
-COPY plugin /bin
+COPY changelog /bin
 
 
 RUN set -ex \
@@ -18,12 +17,20 @@ RUN set -ex \
     \
     \
     && apk update \
-    && apk --no-cache add docker \
+    \
+    # 改变日志依赖于Git查询提交记录
+    && apk --no-cache add git \
+    \
+    && apk --no-cache add npm \
+    \
+    # 配置镜像加速安装过程
+    && npm config set registry http://registry.npmmirror.com \
+    && npm install -g conventional-changelog-cli \
     \
     \
     \
     # 增加执行权限
-    && chmod +x /bin/plugin \
+    && chmod +x /bin/changelog \
     \
     \
     \
@@ -31,4 +38,4 @@ RUN set -ex \
 
 
 # 执行命令
-ENTRYPOINT /bin/plugin
+ENTRYPOINT /bin/changelog
