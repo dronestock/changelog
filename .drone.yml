@@ -20,15 +20,16 @@ steps:
       output:
         name: changelog
 
-  - name: 日志
-    image: dronestock/changelog
-    when:
-      branch:
-        - master
+  - name: 改变
+    image: ccr.ccs.tencentyun.com/dronestock/changelog
+
+  - name: 提交
+    image: ccr.ccs.tencentyun.com/dronestock/git
     settings:
-      username: storezhang@gmail.com
-      password:
-        from_secret: token_github
+      remote: git@github.com:dronestock/changelog.git
+      key:
+        from_secret: ssh_key_github
+      message: "docs(改变): 生成最新的改变日志"
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/docker
