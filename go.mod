@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/dronestock/drone v0.7.6
+	github.com/goexl/git v0.0.5
 	github.com/goexl/gox v0.1.6
 )
 

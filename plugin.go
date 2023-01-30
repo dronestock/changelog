@@ -1,6 +1,8 @@
 package main
 
 import (
+	"path/filepath"
+
 	"github.com/dronestock/drone"
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/field"
@@ -54,6 +56,7 @@ func (p *plugin) Steps() drone.Steps {
 	return drone.Steps{
 		drone.NewStep(newConfigStep(p)).Name("配置").Build(),
 		drone.NewStep(newBuildStep(p)).Name("生成").Build(),
+		drone.NewStep(newCleanupStep(p)).Name("清理").Build(),
 	}
 }
 
@@ -61,4 +64,8 @@ func (p *plugin) Fields() gox.Fields[any] {
 	return gox.Fields[any]{
 		field.New("output", p.Output),
 	}
+}
+
+func (p *plugin) configFilepath() string {
+	return filepath.Join(p.Source, configFilename)
 }

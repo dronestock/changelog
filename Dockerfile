@@ -25,7 +25,7 @@ RUN set -ex \
     \
     # 配置镜像加速安装过程
     && npm config set registry http://registry.npmmirror.com \
-    && npm install -g conventional-changelog-cli \
+    && npm install -g standard-version \
     \
     \
     \
