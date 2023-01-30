@@ -13,15 +13,6 @@ steps:
     commands:
       - echo $testparam
 
-  - name: 编译
-    image: ccr.ccs.tencentyun.com/pangum/drone
-    volumes:
-      - name: go
-        path: /var/lib/go
-    settings:
-      output:
-        name: changelog
-
   - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog
 
@@ -31,6 +22,15 @@ steps:
       remote: git@github.com:dronestock/changelog.git
       key:
         from_secret: ssh_key_github
+
+  - name: 编译
+    image: ccr.ccs.tencentyun.com/pangum/drone
+    volumes:
+      - name: go
+        path: /var/lib/go
+    settings:
+      output:
+        name: changelog
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/docker
