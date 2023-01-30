@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"os"
-	"path/filepath"
 )
 
 type stepConfig struct {
@@ -36,15 +35,15 @@ func newConfigStep(plugin *plugin) *stepConfig {
 	}
 }
 
-func (s *stepConfig) Runnable() bool {
+func (c *stepConfig) Runnable() bool {
 	return true
 }
 
-func (s *stepConfig) Run(_ context.Context) (err error) {
-	if bytes, me := json.Marshal(s.config); nil != me {
+func (c *stepConfig) Run(_ context.Context) (err error) {
+	if bytes, me := json.Marshal(c.config); nil != me {
 		err = me
 	} else {
-		err = os.WriteFile(filepath.Join(s.Source, configFilename), bytes, os.ModePerm)
+		err = os.WriteFile(c.configFilepath(), bytes, os.ModePerm)
 	}
 
 	return

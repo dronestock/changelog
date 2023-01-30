@@ -1,6 +1,6 @@
 package main
 
 const (
-	changelogExe   = "conventional-changelog"
-	configFilename = ".versionrc"
+	changelogExe   = "standard-version"
+	configFilename = ".versionrc.json"
 )
