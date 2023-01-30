@@ -1,8 +1,6 @@
 package main
 
 type config struct {
-	Style   string
-	Subject string
-	Title   title
-	Types   []string
+	Header string `json:"header"`
+	Types  []typ  `json:"types"`
 }
