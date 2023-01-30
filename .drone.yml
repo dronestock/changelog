@@ -36,6 +36,15 @@ steps:
       output:
         name: changelog
 
+  - name: 编译
+    image: ccr.ccs.tencentyun.com/pangum/drone
+    volumes:
+      - name: go
+        path: /var/lib/go
+    settings:
+      output:
+        name: changelog
+
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/docker
     privileged: true
