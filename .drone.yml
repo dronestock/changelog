@@ -7,14 +7,20 @@ clone:
   disable: true
 
 
+environment:
+  VERSION: 0.0.1
+
+
 steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
     commands:
-      - echo $testparam
+      - printenv
 
   - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog
+    settings:
+      version: $${VERSION}
 
   - name: 提交
     image: ccr.ccs.tencentyun.com/dronestock/git
