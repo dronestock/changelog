@@ -9,6 +9,7 @@ description="Drone持续集成Changelog插件，主要是用来生成改变日�
 
 
 # 复制文件
+COPY docker /
 COPY changelog /bin
 
 
