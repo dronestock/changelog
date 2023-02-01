@@ -10,6 +10,8 @@ clone:
 steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
+    commands:
+      - echo $testparam
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
@@ -29,7 +31,6 @@ steps:
       remote: git@github.com:dronestock/changelog.git
       key:
         from_secret: ssh_key_github
-      message: "docs(改变): 生成最新的改变日志"
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/docker
