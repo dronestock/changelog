@@ -3,8 +3,8 @@ module github.com/dronestock/changelog
 go 1.19
 
 require (
-	github.com/dronestock/drone v0.8.0
-	github.com/goexl/gox v0.1.7
+	github.com/dronestock/drone v0.8.2
+	github.com/goexl/gox v0.1.9
 )
 
 require (
@@ -22,6 +22,7 @@ require (
 	github.com/goexl/xiren v0.0.5 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
+	github.com/maja42/goval v1.3.1 // indirect
 	github.com/rs/xid v1.4.0 // indirect
 	github.com/sirupsen/logrus v1.9.0 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
