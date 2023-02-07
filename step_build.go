@@ -2,70 +2,86 @@ package main
 
 import (
 	"context"
-	"encoding/json"
+	"fmt"
+	"strings"
+
+	"github.com/goexl/git"
+	"github.com/goexl/gox"
 )
 
 type stepBuild struct {
 	*plugin
-
-	types []typ
 }
 
 func newBuildStep(plugin *plugin) *stepBuild {
 	return &stepBuild{
 		plugin: plugin,
-
-		types: []typ{
-			{Type: "feat", Section: plugin.Feat},
-			{Type: "fix", Section: plugin.Fix},
-			{Type: "perf", Section: plugin.Perf},
-			{Type: "revert", Section: plugin.Revert},
-			{Type: "chore", Section: plugin.Chore},
-			{Type: "docs", Section: plugin.Docs},
-			{Type: "style", Section: plugin.Style},
-			{Type: "refactor", Section: plugin.Refactor},
-			{Type: "test", Section: plugin.Test},
-			{Type: "build", Section: plugin.Build},
-			{Type: "ci", Section: plugin.Ci},
-		},
 	}
 }
 
-func (s *stepBuild) Runnable() bool {
+func (b *stepBuild) Runnable() bool {
 	return true
 }
 
-func (s *stepBuild) Run(_ context.Context) (err error) {
-	args := []any{
-		"--header",
-		s.Header,
-	}
-	if nil != s.Skip.Bump && *s.Skip.Bump {
-		args = append(args, "--skip.bump")
-	}
-	if nil != s.Skip.Changelog && *s.Skip.Changelog {
-		args = append(args, "--skip.changelog")
-	}
-	if nil != s.Skip.Commit && *s.Skip.Commit {
-		args = append(args, "--skip.commit")
-	}
-	if nil != s.Skip.Tag && *s.Skip.Tag {
-		args = append(args, "--skip.tag")
-	}
-	if "" != s.Version {
-		args = append(args, "--release-as", s.Version)
+func (b *stepBuild) Run(_ context.Context) (err error) {
+	// 更新日志是基于标签来实现的，应该根据标签的个数来确定相应的逻辑
+	// 没有标签，不填充from和to，使用next-tag参数
+	// 只有一个标签，只填充to
+	// 大于等于两个标签，填充from和to
+	var count int64
+	if count, err = git.Count(); nil != err {
+		return
 	}
 
-	if types, me := json.Marshal(s.types); nil != me {
-		err = me
-	} else {
-		args = append(args, "--types", string(types))
-		args = append(args, "--commitUrlFormat", s.Url.Commit)
-		args = append(args, "--compareUrlFormat", s.Url.Compare)
-		args = append(args, "--issueUrlFormat", s.Url.Issue)
-		args = append(args, "--userUrlFormat", s.Url.User)
-		err = s.Command(changelogExe).Args(args...).Dir(s.Source).Exec()
+	switch {
+	case 1 == count && `` == strings.TrimSpace(b.To) && `` != strings.TrimSpace(b.Tag):
+		b.To, err = git.Tag(git.Dir(b.Source))
+	case 2 <= count && `` == strings.TrimSpace(b.From) && `` == strings.TrimSpace(b.Tag):
+		b.From, err = git.Tag(git.Dir(b.Source))
+	case 2 <= count && `` == strings.TrimSpace(b.From) && `` != strings.TrimSpace(b.Tag):
+		b.From, err = git.Tag(git.Second(), git.Dir(b.Source))
 	}
+	if nil != err {
+		return
+	}
+
+	// 写入配置文件
+	if err = gox.RenderToFile(changelogConfigFilename, configTpl, b.Changelog, false); nil != err {
+		return
+	}
+
+	args := []interface{}{
+		"--config", changelogConfigFilename,
+		"--template", changelogTplFilename,
+		"--repository-url", b.Changelog.Url,
+		"--output", b.Output,
+	}
+
+	// JIRA集成
+	if `` != strings.TrimSpace(b.Jira.Url) {
+		args = append(args, `--jira-url`, b.Jira.Url)
+	}
+	if `` != strings.TrimSpace(b.Jira.Username) {
+		args = append(args, `--jira-username`, b.Jira.Username)
+	}
+	if `` != strings.TrimSpace(b.Jira.Token) {
+		args = append(args, `--jira-token`, b.Jira.Token)
+	}
+
+	// 加入标签选择参数
+	from := strings.TrimSpace(b.From)
+	to := strings.TrimSpace(b.To)
+	switch {
+	case "" != from && "" != to:
+		args = append(args, fmt.Sprintf("%s..%s", from, to))
+	case "" != from && "" == to:
+		args = append(args, fmt.Sprintf("%s..", from))
+	case "" == from && "" != to:
+		args = append(args, fmt.Sprintf("..%s", to))
+	}
+
+	// 执行命令
+	err = b.Command(changelogExe).Args(args...).Dir(b.Source).Exec()
 
 	return
 }
