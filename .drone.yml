@@ -15,27 +15,6 @@ steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
 
-  - name: 改变
-    image: ccr.ccs.tencentyun.com/dronestock/changelog
-    settings:
-      version: $${VERSION}
-
-  - name: 提交
-    image: ccr.ccs.tencentyun.com/dronestock/git
-    settings:
-      remote: git@github.com:dronestock/changelog.git
-      key:
-        from_secret: ssh_key_github
-
-  - name: 编译
-    image: ccr.ccs.tencentyun.com/pangum/drone
-    volumes:
-      - name: go
-        path: /var/lib/go
-    settings:
-      output:
-        name: changelog
-
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
     volumes:
