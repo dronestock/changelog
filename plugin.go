@@ -14,11 +14,11 @@ type plugin struct {
 	// 输出
 	Output string `default:"${OUTPUT=CHANGELOG.md}" validate:"required"`
 	// 开始版本
-	From string `default:"${FROM}" validate:"required_without_all=Tag To"`
+	From string `default:"${FROM}"`
 	// 结束版本
-	To string `default:"${TO}" validate:"required_without_all=Tag From"`
+	To string `default:"${TO}"`
 	// 标签配置
-	Tag *tag `default:"${TAG}" validate:"required_without_all=From To"`
+	Tag *tag `default:"${TAG}"`
 
 	// 仓库地址
 	Url string `default:"${URL=${DRONE_REPO_LINK}}"`
