@@ -53,15 +53,15 @@ func (b *stepBuild) Run(_ context.Context) (err error) {
 	}
 
 	// 指定下个版本
-	if nil != b.Tag && "" != b.Tag.Next {
-		args = append(args, "--next-tag", b.Tag.Next)
+	if "" != b.Next {
+		args = append(args, "--next-tag", b.Next)
 	}
 
 	// 加入标签选择参数
 	from := strings.TrimSpace(b.From)
 	to := strings.TrimSpace(b.To)
-	if nil != b.Tag {
-		args = append(args, b.Tag.Name)
+	if "" != b.Tag {
+		args = append(args, b.Tag)
 	} else if "" != from && "" != to {
 		args = append(args, fmt.Sprintf("%s..%s", from, to))
 	} else if "" != from && "" == to {

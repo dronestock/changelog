@@ -17,8 +17,10 @@ type plugin struct {
 	From string `default:"${FROM}"`
 	// 结束版本
 	To string `default:"${TO}"`
-	// 标签配置
-	Tag *tag `default:"${TAG}"`
+	// 当前版本
+	Tag string `default:"${TAG}"`
+	// 下个版本
+	Next string `default:"${NEXT}"`
 
 	// 仓库地址
 	Url string `default:"${URL=${DRONE_REPO_LINK}}"`
