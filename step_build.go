@@ -52,15 +52,21 @@ func (b *stepBuild) Run(_ context.Context) (err error) {
 		args = append(args, "--jira-token", b.Jira.Token)
 	}
 
+	// 指定下个版本
+	if nil != b.Tag && "" != b.Tag.Next {
+		args = append(args, "--next-tag", b.Tag.Next)
+	}
+
 	// 加入标签选择参数
 	from := strings.TrimSpace(b.From)
 	to := strings.TrimSpace(b.To)
-	switch {
-	case "" != from && "" != to:
+	if nil != b.Tag {
+		args = append(args, b.Tag.Name)
+	} else if "" != from && "" != to {
 		args = append(args, fmt.Sprintf("%s..%s", from, to))
-	case "" != from && "" == to:
+	} else if "" != from && "" == to {
 		args = append(args, fmt.Sprintf("%s..", from))
-	case "" == from && "" != to:
+	} else if "" == from && "" != to {
 		args = append(args, fmt.Sprintf("..%s", to))
 	}
 

@@ -1,3 +1,8 @@
+FROM git-chglog/git-chglog:0.15.2 AS chglog
+
+
+
+
 FROM storezhang/alpine:3.16.2
 
 
@@ -11,6 +16,7 @@ description="Drone持续集成Changelog插件，主要是用来生成改变日�
 # 复制文件
 COPY docker /
 COPY changelog /bin
+COPY --from=chglog /usr/local/bin/git-chglog /usr/local/bin/git-chglog
 
 
 RUN set -ex \
@@ -21,12 +27,6 @@ RUN set -ex \
     \
     # 改变日志依赖于Git查询提交记录
     && apk --no-cache add git \
-    \
-    && apk --no-cache add npm \
-    \
-    # 配置镜像加速安装过程
-    && npm config set registry http://registry.npmmirror.com \
-    && npm install -g standard-version \
     \
     \
     \
