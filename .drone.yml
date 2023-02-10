@@ -7,10 +7,6 @@ clone:
   disable: true
 
 
-environment:
-  VERSION: 0.0.1
-
-
 steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
