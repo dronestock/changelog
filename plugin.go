@@ -18,8 +18,24 @@ type plugin struct {
 	// 结束版本
 	To string `default:"${TO}"`
 
+	// 仓库地址
+	Url string `default:"${URL=${DRONE_REPO_LINK}}"`
+	// 配置
+	Conf string `default:"${CONFIG=exp:file(\"/etc/changelog/changelog.tpl.md.gohtml\")}"`
+	// 样式
+	Style string `default:"${STYLE=github}"`
+	// 主题
+	Subject string `default:"# 更新历史 \n\n"`
+	// 标题
+	Title title `default:"${TITLE}"`
+	// 可以导出的类型
+	Types []string `default:"['feat', 'fix', 'pref', 'refactor', 'chore']"`
+	// 模板
+	Template string `default:"${TEMPLATE=exp:file(\"/etc/changelog/CHANGELOG.tpl.md\")}"`
+	// 路径
+	Filepath filepath `default:"${FILEPATH}"`
 	// 额外配置
-	Jira jira `default:"${JIRA}"`
+	Jira *jira `default:"${JIRA}"`
 }
 
 func newPlugin() drone.Plugin {
@@ -33,6 +49,7 @@ func (p *plugin) Config() drone.Config {
 func (p *plugin) Steps() drone.Steps {
 	return drone.Steps{
 		drone.NewStep(newBuildStep(p)).Name("生成").Build(),
+		drone.NewStep(newCleanupStep(p)).Name("清理").Build(),
 	}
 }
 

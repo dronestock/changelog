@@ -1,5 +1,3 @@
 package main
 
-const (
-	changelogExe = "git-chglog"
-)
+const changelogExe = "git-chglog"

@@ -4,14 +4,11 @@ go 1.19
 
 require (
 	github.com/dronestock/drone v0.8.2
-	github.com/dronestock/git v0.0.0-20230206151257-e24a792aa428
-	github.com/goexl/git v0.0.5
-	github.com/goexl/gox v0.1.9
+	github.com/goexl/gox v0.2.0
 )
 
 require (
 	github.com/drone/envsubst v1.0.3 // indirect
-	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.11.2 // indirect
@@ -20,7 +17,6 @@ require (
 	github.com/goexl/env v0.0.2 // indirect
 	github.com/goexl/exc v0.0.5 // indirect
 	github.com/goexl/gex v0.2.7 // indirect
-	github.com/goexl/gfx v0.1.7 // indirect
 	github.com/goexl/mengpo v0.2.4 // indirect
 	github.com/goexl/simaqian v0.2.3 // indirect
 	github.com/goexl/xiren v0.0.5 // indirect
