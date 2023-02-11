@@ -21,6 +21,7 @@ steps:
     image: ccr.ccs.tencentyun.com/dronestock/git
     settings:
       remote: git@github.com:dronestock/changelog.git
+      clear: false
       key:
         from_secret: ssh_key_github
 
