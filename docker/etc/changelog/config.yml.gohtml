@@ -1,0 +1,27 @@
+style: {{ .Style }}
+template: CHANGELOG.tpl.md
+info:
+  title: {{ .Subject }}
+  repository_url: https://github.com/dronestock/changelog
+options:
+  commits:
+    filters:
+      Type: {{ range .Types }}
+        - {{ . }}
+      {{- end }}
+  commit_groups:
+    title_maps:
+      feat: {{ .Title.Feat }}
+      fix: {{ .Title.Fix }}
+      perf: {{ .Title.Perf }}
+      refactor: {{ .Title.Refactor }}
+      chore: {{ .Title.Chore }}
+  header:
+    pattern: ^(\w*)(?:\((.*)\))?\:\s(.*)$
+    pattern_maps:
+      - Type
+      - Scope
+      - Subject
+  notes:
+    keywords:
+      - BREAKING CHANGE
