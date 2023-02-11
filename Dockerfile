@@ -41,6 +41,8 @@ RUN set -ex \
 # 默认参数
 ENV PLUGIN_CONFIG "exp:file(\"/etc/changelog/config.yml.gohtml\")"
 ENV PLUGIN_TEMPLATE "exp:file(\"/etc/changelog/CHANGELOG.tpl.md\")"
+ENV CONFIG_PATH /tmp/config.yml
+ENV TEMPLATE_PATH /tmp/CHANGELOG.tpl.md
 
 
 # 执行命令
