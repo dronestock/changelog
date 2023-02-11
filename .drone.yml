@@ -21,6 +21,7 @@ steps:
     settings:
       remote: git@github.com:dronestock/changelog.git
       clear: false
+      message: "docs(改变): 生成最新的改变日志 [CI SKIP]"
       key:
         from_secret: ssh_key_github
 
