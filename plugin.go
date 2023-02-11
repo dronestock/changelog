@@ -25,7 +25,7 @@ type plugin struct {
 	// 仓库地址
 	Url string `default:"${URL=${DRONE_REPO_LINK}}"`
 	// 配置
-	Conf string `default:"${CONFIG=exp:file(\"/etc/changelog/changelog.tpl.md.gohtml\")}"`
+	Conf string `default:"${CONFIG}"`
 	// 样式
 	Style string `default:"${STYLE=github}"`
 	// 主题
@@ -35,7 +35,7 @@ type plugin struct {
 	// 可以导出的类型
 	Types []string `default:"['feat', 'fix', 'pref', 'refactor', 'chore']"`
 	// 模板
-	Template string `default:"${TEMPLATE=exp:file(\"/etc/changelog/CHANGELOG.tpl.md\")}"`
+	Template string `default:"${TEMPLATE}"`
 	// 路径
 	Filepath filepath `default:"${FILEPATH}"`
 	// 额外配置

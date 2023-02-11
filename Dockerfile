@@ -38,5 +38,10 @@ RUN set -ex \
     && rm -rf /var/cache/apk/*
 
 
+# 默认参数
+ENV PLUGIN_CONFIG exp:file("/etc/changelog/config.yml.gohtml")
+ENV PLUGIN_TEMPLATE exp:file("/etc/changelog/CHANGELOG.tpl.md")
+
+
 # 执行命令
 ENTRYPOINT /bin/changelog

@@ -4,7 +4,7 @@ type title struct {
 	// 新功能
 	Feat string `default:"✨ Features | 新功能"`
 	// 修复
-	Fix string `default:"🐛 Bug Fixes | Bug 修复"`
+	Fix string `default:"🐛 Bug Fixes | Bug修复"`
 	// 性能优化
 	Perf string `default:"⚡ Performance Improvements | 性能优化"`
 	// 回退
