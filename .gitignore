@@ -4,6 +4,8 @@
 *.dll
 *.so
 *.dylib
+*.upx
+changelog
 dist/
 
 # 测试文件
