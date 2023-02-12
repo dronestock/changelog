@@ -26,7 +26,7 @@ steps:
         path: /var/lib/go
     settings:
       outputs:
-        - name: changelog
+        - name: $${NAME}
           os: linux
           arch: amd64
         - name: $${OUTPUT_LINUX}
@@ -75,6 +75,7 @@ steps:
       event:
         - tag
     environment:
+      VERSION: $${DRONE_TAG##v}
       TOKEN:
         from_secret: token_github
     settings:
