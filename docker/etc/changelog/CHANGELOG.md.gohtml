@@ -1,6 +1,6 @@
 {{ if .Versions -}}
 <a id="unreleased"></a>
-## [Unreleased]
+## 👋 Unreleased | 未发布
 
 {{ if .Unreleased.CommitGroups -}}
 {{ range .Unreleased.CommitGroups -}}
@@ -23,7 +23,7 @@
 {{ end -}}
 
 {{- if .RevertCommits -}}
-### 🀄 Reverts | 恢复
+### 🀄 Reverts | 撤消
 {{ range .RevertCommits -}}
 - {{ .Revert.Header }}
 {{ end }}
