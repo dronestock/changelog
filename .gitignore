@@ -4,7 +4,6 @@
 *.dll
 *.so
 *.dylib
-*.upx
 changelog
 dist/
 
@@ -18,6 +17,7 @@ dist/
 
 # 各种工具中间文件
 *.out
+*.upx
 *.lock
 *.sum
 
