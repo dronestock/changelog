@@ -18,7 +18,7 @@ type plugin struct {
 	// 结束版本
 	To string `default:"${TO}"`
 	// 当前版本
-	Tag string `default:"${TAG}"`
+	Tag string `default:"${TAG=${DRONE_TAG}}"`
 	// 下个版本
 	Next string `default:"${NEXT}"`
 
