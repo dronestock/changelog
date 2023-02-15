@@ -6,7 +6,7 @@ type title struct {
 	// 修复
 	Fix string `default:"🐛 Bug Fixes | Bug修复"`
 	// 性能优化
-	Perf string `default:"⚡ Performance Improvements | 性能优化"`
+	Perf string `default:"📈 Performance Improvements | 性能优化"`
 	// 回退
 	Revert string `default:"⏪ Reverts | 回退"`
 	// 回退
@@ -14,9 +14,9 @@ type title struct {
 	// 文档
 	Docs string `default:"📝 Documentation | 文档"`
 	// 风格
-	Style string `default:" Styles | 风格"`
+	Style string `default:"🌈 Styles | 风格"`
 	// 代码重构
-	Refactor string `default:"♻ Code Refactoring | 代码重构"`
+	Refactor string `default:"🔄 Code Refactoring | 代码重构"`
 	// 测试
 	Test string `default:"✅ Tests | 测试"`
 	// 构建
