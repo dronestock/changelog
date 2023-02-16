@@ -1,4 +1,4 @@
-FROM quay.io/git-chglog/git-chglog:0.15.3 AS chglog
+FROM quay.io/git-chglog/git-chglog:0.15.4 AS chglog
 
 
 
