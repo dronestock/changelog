@@ -29,7 +29,7 @@ func (b *stepBuild) Run(_ context.Context) (err error) {
 	config.Style = b.Style
 	config.Title = b.Title
 	config.Types = b.Types
-	if err = tpl.New(b.Conf).Data(config).Build().File(b.Filepath.Config); nil != err {
+	if err = tpl.New(b.Conf).Data(config).Build().ToFile(b.Filepath.Config); nil != err {
 		return
 	}
 
