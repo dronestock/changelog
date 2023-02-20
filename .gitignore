@@ -19,7 +19,6 @@ dist/
 *.out
 *.upx
 *.lock
-*.sum
 
 # 依赖文件
 vendor/
