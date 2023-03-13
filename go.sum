@@ -6,8 +6,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/drone/envsubst v1.0.3 h1:PCIBwNDYjs50AsLZPYdfhSATKaRg/FJmDc2D6+C2x8g=
 github.com/drone/envsubst v1.0.3/go.mod h1:N2jZmlMufstn1KEqvbHjw40h1KyTmnVzHcSc9bFiJ2g=
-github.com/dronestock/drone v0.9.0 h1:a81lAlMmR+6SVWJjJ2+xkepg0IWNLABkpMjhEKSI4N4=
-github.com/dronestock/drone v0.9.0/go.mod h1:EoPLaYiClb/ZsT/rznOKtgTFv7cWS8jwyhEWfJv/SGg=
+github.com/dronestock/drone v0.9.1 h1:nXNHpdkLtRdD19bBIVcaSpMolYY5ZFUihF+4mA9IBL8=
+github.com/dronestock/drone v0.9.1/go.mod h1:EoPLaYiClb/ZsT/rznOKtgTFv7cWS8jwyhEWfJv/SGg=
 github.com/go-playground/assert/v2 v2.2.0 h1:JvknZsQTYeFEAhQwI4qEt9cyV5ONwRHC+lYKSsYSR8s=
 github.com/go-playground/locales v0.14.1 h1:EWaQ/wswjilfKLTECiXz7Rh+3BjFhfDFKv/oXslEjJA=
 github.com/go-playground/locales v0.14.1/go.mod h1:hxrqLVvrK65+Rwrd5Fc6F2O76J/NuW9t0sjnWqG1slY=
