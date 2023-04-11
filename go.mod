@@ -3,7 +3,7 @@ module github.com/dronestock/changelog
 go 1.19
 
 require (
-	github.com/dronestock/drone v0.9.5
+	github.com/dronestock/drone v0.9.6
 	github.com/goexl/gox v0.2.8
 )
 
