@@ -3,7 +3,7 @@ FROM quay.io/git-chglog/git-chglog:0.15.4 AS chglog
 
 
 
-FROM ccr.ccs.tencentyun.com/storezhang/alpine:3.19.1
+FROM ccr.ccs.tencentyun.com/storezhang/alpine:3.20.0
 
 
 LABEL author="storezhang<华寅>" \
